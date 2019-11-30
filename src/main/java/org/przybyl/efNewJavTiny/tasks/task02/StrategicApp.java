@@ -37,8 +37,25 @@ public class StrategicApp {
 	}
 }
 
-abstract class DiscountStrategy {
-	abstract BigDecimal calculateDiscount(BigDecimal total);
+@FunctionalInterface
+interface DiscountStrategy {
+	BigDecimal calculateDiscount(BigDecimal total);
+
+	static BigDecimal tenPercent(BigDecimal total) {
+		return byMultiplier(total, "0.1");
+	}
+
+	static BigDecimal twentyPercent(BigDecimal total) {
+		return byMultiplier(total, "0.2");
+	}
+
+	static BigDecimal roundToTen(BigDecimal total) {
+		return total.remainder(BigDecimal.TEN);
+	}
+
+	private static BigDecimal byMultiplier(BigDecimal total, String multiplier) {
+		return total.multiply(new BigDecimal(multiplier));
+	}
 }
 
 class Client {
@@ -60,35 +77,16 @@ class DiscountSelector {
 	static DiscountStrategy chooseDiscount(Client client) {
 		switch (client.getLevel()) {
 			case GOLD:
-				return new TwentyPercentDiscount();
+				// for complex algorithms with many usage cases
+				return DiscountStrategy::twentyPercent;
 			case SILVER:
-				return new TenPercentDiscount();
+				// for simple lambdas with single use only
+				return total -> total.multiply(new BigDecimal("0.1"));
 			case NONE:
 			default:
-				return new RoundTenDiscount();
+				return DiscountStrategy::roundToTen;
 		}
 	}
 }
 
-class TenPercentDiscount extends DiscountStrategy {
-	@Override
-	public BigDecimal calculateDiscount(BigDecimal total) {
-		return total.multiply(new BigDecimal("0.1"));
-	}
-}
-
-
-class TwentyPercentDiscount extends DiscountStrategy {
-	@Override
-	public BigDecimal calculateDiscount(BigDecimal total) {
-		return total.multiply(new BigDecimal("0.2"));
-	}
-}
-
-class RoundTenDiscount extends DiscountStrategy {
-	@Override
-	public BigDecimal calculateDiscount(BigDecimal total) {
-		return total.remainder(BigDecimal.TEN);
-	}
-}
 
