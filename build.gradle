@@ -26,7 +26,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'org.przybyl.efNewJav.Riddle'
+    mainClassName = 'org.przybyl.efNewJavTiny.Riddle'
 }
 
 test {
