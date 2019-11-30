@@ -25,7 +25,7 @@ import java.util.stream.*;
 public class StreamToPrimitiveStream {
 	public static void main(String[] args) {
 		Optional<Long> sumOfRoundsBoxed = Stream.of(1.3, 2.4, 3.6, 4.7).map(Math::round).reduce(Long::sum);
-		long sumOfRounds = 0; //change zero to implementation
+		long sumOfRounds = DoubleStream.of(1.3, 2.4, 3.6, 4.7).mapToLong(Math::round).sum();
 
 		System.out.println(sumOfRoundsBoxed);
 		System.out.println(sumOfRounds);
