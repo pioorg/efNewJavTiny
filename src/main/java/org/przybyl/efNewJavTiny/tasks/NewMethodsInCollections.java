@@ -30,9 +30,42 @@ package org.przybyl.efNewJavTiny.tasks;
 //	9. Print the contents of Set.of. Restart the application a few times and observe results.
 //	10. Create array of the set created in 9.
 
+import java.util.*;
+
 public class NewMethodsInCollections {
 
 	public static void main(String[] args) {
 
+		List<String> list8 = Arrays.asList("ene", "due", "like", "fake");
+		Set<String> set8 = new HashSet<>(list8);
+
+//		list8.add("torba");
+		set8.add("torba");
+
+		List<String> listOf = List.of("ene", "due", "like", "fake");
+		Set<String> setOf = Set.of("ene", "due");
+
+//		listOf.add("torba");
+//		setOf.add("torba");
+		List<String> copyList8 = List.copyOf(list8);
+		Set<String> copySet8 = Set.copyOf(set8);
+
+		List<String> copyListOf = List.copyOf(listOf);
+		Set<String> copySetOf = Set.copyOf(setOf);
+
+		checkEquality(copyList8, list8);
+		checkEquality(copySet8, set8);
+		checkEquality(copyListOf, listOf);
+		checkEquality(copySetOf, setOf);
+
+		System.out.println(List.of(1, 2).getClass().getCanonicalName());
+		System.out.println(setOf);
+		System.out.println(setOf.toArray(String[]::new));
 	}
+
+	private static void checkEquality(Collection<?> one, Collection<?> two) {
+		System.out.println(String.format("Collections equal? %s", one.equals(two)));
+		System.out.println(String.format("Collections ==? %s", one == two));
+	}
+
 }
