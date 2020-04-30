@@ -1,5 +1,5 @@
 /*
- * 	Copyright (C) 2019 Piotr Przybył
+ * 	Copyright (C) 2019-2020 Piotr Przybył
  *
  * 	This program is free software: you can redistribute it and/or modify
  * 	it under the terms of the GNU General Public License as published by
@@ -21,15 +21,15 @@ import java.util.*;
 public class Riddle {
 
 	public static void main(String[] args) {
-		var un = List.of("check");
-		var dois = List.copyOf(un);
-		if (un == dois) {
+		var raz = List.of("checking!");
+		var dwa = List.copyOf(raz);
+		if (raz == dwa) {
 			System.out.println("ene");
-		} else if (un.equals(dois)) {
+		} else if (raz.equals(dwa)) {
 			System.out.println("due");
 		} else {
 			System.out.println("like");
 		}
-		System.out.println(un.getClass().getCanonicalName());
+		System.out.println(raz.getClass().getCanonicalName());
 	}
 }
